@@ -25,10 +25,16 @@ namespace PresidentsMagazine.Test
                                                     .BuildServiceProvider();
 
             var presidentsRepository = services.GetRequiredService<IPresidentsRepository>();
+
+
+
+
+            //Act          
+
+            Func<Task> Result = (async () => await presidentsRepository.GetByIdAsync(Guid.Empty));
+
             //Assert
-            await Assert.ThrowsAsync<ArgumentException>( //Act
-                                                        () => presidentsRepository.GetByIdAsync(Guid.Empty)
-                                                        );
+            await Assert.ThrowsAsync<ArgumentException>(Result);
         }
        
     }
